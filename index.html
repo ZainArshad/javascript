@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    
+</head>
+<body>
+	
+	<canvas id="myChart" style="height: 601px;"></canvas>
+	
+	
+</body>
+<script src="https://code.jscharting.com/2.9.0/jscharting.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="libs/d3.min.js"></script>
+
+<script >
+	
+	fetch('')
+	.then(function (response) {
+		return response.text();
+	})
+	.then(function (text) {
+		//let series = csvToSeries(text);
+		renderChart(series);
+		console.log(series);
+	})
+	.catch(function (error) {
+		//Something went wrong
+		console.log(error);
+	}).then(function(){
+		renderChart(null);
+	});
+
+function min(text){
+	let min=10;
+	text.forEach(function (row) {
+			if(min>row.average_rating)
+			{
+				min=row.average_rating;
+			}
+	});
+	return min;
+}
+
+function max(text){
+	let max=0;
+	text.forEach(function (row) {
+			if(max<row.average_rating)
+			{
+				max=row.average_rating;
+			}
+	});
+	return max;
+}
+
+function random_rgba() {
+    var o = Math.round, r = Math.random, s = 201;
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+}
+
+
+function getDataset(index, data) { 
+	let rgba=random_rgba();
+	console.log("rgba is "+ rgba);
+return { 
+label: index, 
+borderColor: rgba, // Add custom color border (Line)
+ backgroundColor: 'rgba(255,255,255)',
+/* fillColor: 'rgba(220,220,220,0.2)', 
+strokeColor: 'rgba(220,220,220,1)', 
+pointColor: 'rgba(220,220,220,1)', 
+pointStrokeColor: '#fff', 
+pointHighlightFill: '#fff', 
+pointHighlightStroke: 'rgba(220,220,220,1)',  */
+data: data 
+	} 
+}
+
+function plot(text)
+{
+	const lifeExp = 'average_life_expectancy';
+	//let dataAsJson = JSC.csv2Json(text);
+	let max=0, min=10000;
+	let bb=0;
+	text.forEach(function (row) {
+		row.average_rating=Math.floor(row.average_rating);
+			if(max<row.year)
+			{
+				max=row.year;
+			}
+			if(min>row.year)
+			{
+				min=row.year;
+			}
+		bb++;
+	});
+	console.log("max "+max);
+	console.log("min "+min);
+	var size=max-min;
+	size=size+1;
+	console.log("size "+size);
+	let rating=[size][11], count=[size][11];
+	let ratings=new Array(size);
+	let counts=new Array(size);
+	for(b=0;b<size; b++)
+	{
+		ratings[b]=new Array(11);
+		counts[b]=new Array(11);
+	}
+	let countt=0;
+	for (j=min; j<=max; j++)
+	{
+		for(b=0; b<=10; b++)
+		{
+			countt=0;
+			text.forEach(function (row) {
+				if(row.year==j)
+				{
+					if(row.average_rating==b)
+					{
+						countt++;
+					}
+				}
+				
+			});
+//			console.log("value of j "+j);
+			//rating[j-min].push(b);
+			ratings[j-min][b]=b;
+			counts[j-min][b]=countt;
+		}
+	}
+//	console.log("rating ");
+//	console.log(counts);
+	var obj=[];
+	for(b=0; b<10; b++){
+		console.log(counts[b]);
+		obj.push(getDataset("201"+b,(counts[b]))); 
+};
+console.log(counts[0]);
+console.log("obj ");
+console.log(obj);
+	var ctx = document.getElementById("myChart").getContext('2d');
+
+	var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["0","1",	"2",	"3",	"4",	"5",	"6",	"7","8",	"9","10"],
+        datasets: obj
+    },
+    options: {
+		title: {
+			display: true,
+			
+            text: 'Board games by Rating 2015-2019'
+		},
+		legend: {
+			display: true,
+			position:'right',
+        },
+      responsive: true, // Instruct chart js to respond nicely.
+      maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+    }
+});
+}
+
+
+function renderChart(series) {
+  d3.csv("/average-rating.csv",function(data) {
+
+  plot(data);
+});
+
+	
+}
+
+
+
+
+
+
+
+</script>
+</html>
