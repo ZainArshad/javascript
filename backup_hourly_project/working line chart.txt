@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Abukai</title>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container main-content">
+        <header>
+
+            <div class="header-image">
+                <div class="menu-top pull-right">
+                    <a href="#" class="btn btn-default">Log Out</a>
+                </div>
+                <!-- /.menu-top-->
+                <div class="logo-container">
+                    <h1><a href="#">Abukai</a></h1>
+                    <span class="h1-subtitle">Actionable Business Productivity</span>
+                </div>
+
+
+                <div id="menu_container">
+                    <nav class="navbar navbar-default">
+
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Expenses</a></li>
+                                <li><a href="#">ToDo</a></li>
+                                <li><a href="#">User Profile</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul>
+
+                        </div>
+                        <!-- /.navbar-collapse -->
+
+                    </nav>
+                </div>
+            </div>
+            <!--/.header-image-->
+            <div id="submenu_container">
+                <nav class="navbar navbar-default navbar-sub">
+
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">Setup</a>
+                            </li>
+                            <li class="active"><a href="#">Edit</a>
+                            </li>
+                            <li><a href="#">User Profile</a>
+                            </li>
+                            <li><a href="#">Help</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- /.navbar-collapse -->
+
+                </nav>
+
+            </div>
+            <!-- /.logo-container-->
+
+
+        </header>
+        <!-- /. header -->
+        <article class="main-content-inner">
+
+            <ul class="switch">
+                <li><a href="javascript: updateGraph('pie-chart.csv','pie')" class="btn btn-default">Show pie chart</a></li>
+                <li><a href="javascript: updateGraph('bar-chart.csv','pie')" class="btn btn-default">Show bar chart</a></li>
+                <li><a onclick="renderChart('csv/line.csv')" class="btn btn-default">Show line chart</a></li>
+            </ul>
+
+            <div id="chart"></div>
+            <canvas id="myChart" style="height: 301px;"></canvas>
+        </article>
+        <!-- /.main-content-inner -->
+        <footer>
+            <ul>
+                <li><a href="http://abukai.com/?id=4">Contact Us</a></li>
+                <li><a href="http://abukai.com/?id=privacy">Privacy Statement</a></li>
+                <li><a href="http://abukai.com/?id=tos">Terms of Use</a></li>
+                <li><a href="http://abukai.com/?id=eula">EULA</a></li>
+            </ul>
+            &copy; Copyright 2010-2017 ABUKAI, Inc. All Rights Reserved. Various trademarks held by their respective owners.
+        </footer>
+
+    </div>
+    <!--/.container-->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://code.jscharting.com/2.9.0/jscharting.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="libs/d3.min.js"></script>
+
+</body>
+
+<script>
+
+function getDataset(index, data) { 
+return { 
+x: index, 
+y: data,
+data:data
+
+	} 
+}
+
+    function renderChart(c)
+    {
+        plots(c);
+    }
+
+function plots(text)
+{
+ 
+    console.log("start");
+    var iterator=0;// for iterating the loop
+    var a_labels= new Array();
+    var c_array=new Array();
+    var adder=0;// the indices of a_labels array
+    var c_adder=0;//the indices of c_addr array
+    var data ={'x':"",'y':0};
+    //var data={x=new String(), y=new int()};
+    var datas=new Array(data);
+    d3.text(text, function(text) {
+  var data = d3.csvParseRows(text).map(function(row) {
+    return row.map(function(value) {
+        if(iterator>1 && iterator%2==0) 
+        {
+            console.log(value);
+            a_labels[adder]=value;
+            adder++;
+        }
+        else if(iterator>1 && iterator%2!=0) 
+        {
+            console.log(value);
+            c_array[c_adder]=parseInt(value);
+            c_adder++;
+        }
+      iterator++;
+    });
+    
+  });
+ 
+  //console.log(data);
+  console.log("total data");
+  console.log(a_labels);
+  console.log(c_array);
+
+
+
+  var obj=[];
+	for(b=0; b<c_array.length; b++){
+        //datas[b].x=a_labels[b];
+        // datas[b].y=c_array[b];
+		//console.log(counts[b]);
+        //obj.push(getDataset(a_labels,(c_array))); 
+        obj.push(getDataset(a_labels[b],c_array[b]));
+};
+//console.log(datas);
+//console.log(counts[0]);
+console.log("obj ");
+console.log(obj);
+//d3line(obj);
+var arr=[0,0,	0,	300,	0,	0,	0,	555,	0,	0, 0, 0, 0 ,0, 0, 0, 0, 2400, 0,0,0,0,0,0,1200, 0,0,0,0,0,0 ];
+	var ctx = document.getElementById("myChart").getContext('2d');
+
+	var myChart = new Chart(ctx, {
+    type: 'line',
+    
+    //data: obj,
+    data: {
+        labels: a_labels,
+        datasets:[ 
+            {
+                data:c_array,
+        fill: false,
+            borderColor: '#2196f3', // Add custom color border (Line)
+            backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+            borderWidth: 1 
+    }]},
+    options: {
+		title: {
+			display: true,
+			
+            text: 'Average # of Expenses/Report per Day'
+		},
+		legend: {
+			display: true,
+			position:'right',
+        },
+      responsive: true, // Instruct chart js to respond nicely.
+      maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+    }
+});
+
+
+
+
+
+});
+
+	//const lifeExp = 'Average # of Expenses/Report per Day';
+	//let dataAsJson = JSC.csv2Json(text);
+	
+	
+//	console.log("rating ");
+//	console.log(counts);
+	
+}
+
+function d3line(datas)
+{
+    var dataset = datas;
+// Calculate Margins and canvas dimensions
+var margin = {top: 40, right: 40, bottom: 40, left: 60},
+    width = 700 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+//Parsers and Formaters
+var parseTime = d3.timeParse("%d/%m/%Y");
+var formatTime = d3.timeFormat("%a/%b/%Y");
+
+// Scales
+var x = d3.scaleTime()
+    .range([0, width]);
+
+var y = d3.scaleLinear()
+    .range([height, 0]);
+
+// Line
+var line = d3.line()
+    .x(function(d) { return x(this.parseInt(d.date)); })
+    .y(function(d) { return y(d.pizzas/1000); })
+
+
+var svg = d3.select("body").append("svg")
+    .style("background-color", '#888')
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+ 
+ //Arguments for axes : Ranges for X, y  
+ x.domain(d3.extent(dataset, function(d) { return parseTime(d.date); }));
+ y.domain(d3.extent(dataset, function(d) { return d.pizzas/1000; }));
+
+
+// Axes
+  svg.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  svg.append("g")
+      .attr("class", "axis axis--y")
+      .call(d3.axisLeft(y));
+  // Labels
+  svg.append("text")
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .attr("transform", "translate("+ (margin.left - 94 ) +","+(height/2)+")rotate(-90)")  
+            .text("Pizzas ( Thousands ) ");
+
+  svg.append("text")
+            .style("font-size", "14px")
+            .attr("text-anchor", "middle") 
+            .attr("transform", "translate("+ (width/2) +","+(height-(margin.bottom -74))+")")
+            .text("Date");
+
+  //  Chart Title
+  svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 20 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .text("Pizza consumption");
+
+// Data Lines:
+
+   svg.append("path")
+       .datum(dataset)
+      .attr("class", "line")
+      .attr("d", line);
+
+// See also :
+//https://github.com/d3/d3-shape/blob/master/README.md#lines
+//https://bl.ocks.org/mbostock/02d893e3486c70c4475f
+}
+    
+
+</script>
+
+</html>
