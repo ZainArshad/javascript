@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Abukai</title>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+</head>
+
+<style>
+    .blur{
+  -webkit-filter: url("#f3");
+  filter: url("#f3");
+}
+
+
+.lp-pom-text ul, li {
+list-style-type: square !important;
+}
+
+li::before {
+  content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: black; /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+  margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+
+input[type=range] {
+    -webkit-appearance: none;
+    -moz-apperance: none;
+    border-radius: 6px;
+    height: 6px;
+    
+   
+    
+    background-image: -moz-linear-gradient(left center,
+        #DF7164 0%, #DF7164 15%,
+        #F5D0CC 15%, #F5D0CC 100%);
+}
+
+
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background-color: #df7164;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+}
+
+input[type=range]::-moz-range-thumb {
+    -moz-appearance: none !important;
+    background-color: #df7164;
+    border: none;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+}
+
+
+</style>
+
+<body>
+
+    <div class="container main-content">
+        <header>
+
+            <div class="header-image">
+                <div class="menu-top pull-right">
+                    <a href="#" class="btn btn-default">Log Out</a>
+                </div>
+                <!-- /.menu-top-->
+                <div class="logo-container">
+                    <h1><a href="#">Abukai</a></h1>
+                    <span class="h1-subtitle">Actionable Business Productivity</span>
+                </div>
+
+
+                <div id="menu_container">
+                    <nav class="navbar navbar-default">
+
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Expenses</a></li>
+                                <li><a href="#">ToDo</a></li>
+                                <li><a href="#">User Profile</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul>
+
+                        </div>
+                        <!-- /.navbar-collapse -->
+
+                    </nav>
+                </div>
+            </div>
+            <!--/.header-image-->
+            <div id="submenu_container">
+                <nav class="navbar navbar-default navbar-sub">
+
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">Setup</a>
+                            </li>
+                            <li class="active"><a href="#">Edit</a>
+                            </li>
+                            <li><a href="#">User Profile</a>
+                            </li>
+                            <li><a href="#">Help</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- /.navbar-collapse -->
+
+                </nav>
+
+            </div>
+            <!-- /.logo-container-->
+
+
+        </header>
+        <!-- /. header -->
+        <article class="main-content-inner">
+
+            <ul class="switch">
+                <!-- <li><a href="javascript: updateGraph('pie-chart.csv','pie')" class="btn btn-default">Show pie chart</a></li> -->
+                <li><a href="javascript: updateGraph('csv/pie.csv','pie')" class="btn btn-default">Show pie chart</a></li>
+                <li><a href="javascript: updateGraph('csv/bar.csv','bar')" class="btn btn-default">Show bar chart</a></li>
+                <li><a href="javascript: updateGraph('csv/line.csv','line')" class="btn btn-default">Show line chart</a></li>
+            </ul>
+
+            <!-- <div id="chart"></div> -->
+            <canvas id="myChart" style="height: 601px;  display:none; min-height: 100px;"></canvas>
+            <svg height="140" width="140">
+                <defs>
+                  <filter id="f3" x="0" y="0" width="200%" height="200%">
+                    <feOffset result="offOut" in="SourceAlpha" dx="20" dy="20" />
+                    <feGaussianBlur id="blurs" result="blurOut" in="offOut" stdDeviation="10" />
+                    <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                  </filter>
+                </defs>
+            </svg>
+            <div id="legend" style="padding-left: 600px;"></div>
+            <canvas id="pieChart" style="height: 1000px; width:800px; display:none; min-height: 100px;" class="blur myChart" ></canvas>
+            <input type="range" id="vol" name="vol" min="0" max="50" style="background-color:coral; background: coral;" onchange="shadowSetter()">
+            <!-- <ul class="legend"></ul> -->
+        
+            <canvas id="barChart" style="height: 601px; display:none; min-height: 100px;"></canvas>
+        </article>
+        <!-- /.main-content-inner -->
+        <footer>
+            <ul>
+                <li><a href="http://abukai.com/?id=4">Contact Us</a></li>
+                <li><a href="http://abukai.com/?id=privacy">Privacy Statement</a></li>
+                <li><a href="http://abukai.com/?id=tos">Terms of Use</a></li>
+                <li><a href="http://abukai.com/?id=eula">EULA</a></li>
+            </ul>
+            &copy; Copyright 2010-2017 ABUKAI, Inc. All Rights Reserved. Various trademarks held by their respective owners.
+        </footer>
+
+    </div>
+    <!--/.container-->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
+    <script src="script.js"></script>
+    <script src="line.js"></script>
+    <script src="pie.js"></script>
+    <script src="bar.js"></script>
+    <!-- <script src="https://code.jscharting.com/2.9.0/jscharting.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="libs/d3.min.js"></script>
+<script>
+    window.onload=lineChart('csv/pie.csv');
+</script>
+
+<script>
+    var count=0;
+    var state;
+  function  updateGraph(para1,para2)
+    {
+       //if(para2==='bar' && count==0)
+       //{
+         //   state=barChart(para1,null);
+       //}
+       if(para2==='bar')
+            barChart(para1);
+
+        if (para2==='line')
+        renderChart(para1);
+
+        if(para2==='pie')
+            lineChart(para1);
+      //  if(para2==='line')
+       //{
+         //   state=renderChart(para1,state);
+       //}
+
+       //if(para2==='bar')
+       //{
+         //   state=barChart(para1,state);
+       //}
+      
+        
+    }
+
+function shadowSetter(){
+    var value=document.getElementById("vol").value.toString();
+    console.log( "document.getElementById.stdDeviation.value");
+    document.getElementById("blurs").setAttribute("stdDeviation",value);
+    //console.log( document.getElementById("blurs").stdDeviation.value);
+    //document.getElementById("blurs").stdDeviation.value=value;
+}
+
+
+</script>
+
+
+</body>
+
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="https://d3js.org/d3-color.v2.min.js"></script>
+<script src="https://d3js.org/d3-format.v2.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
+<script src="https://d3js.org/d3-time.v2.min.js"></script>
+<script src="https://d3js.org/d3-time-format.v3.min.js"></script>
+<script src="https://d3js.org/d3-scale.v3.min.js"></script>
+
+</html>
