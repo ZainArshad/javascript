@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Abukai</title>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+</head>
+
+<style>
+    .blur {
+        -webkit-filter: url("#f3");
+        filter: url("#f3");
+    }
+    
+    .legendValue {
+        float: left;
+        height: 25px;
+    }
+    
+    .check li::before {
+        font-size: 150%;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em
+    }
+    
+    input[type=range] {
+        -webkit-appearance: none;
+        -moz-apperance: none;
+        border-radius: 6px;
+        height: 6px;
+        background-image: -moz-linear-gradient(left center, #DF7164 0%, #DF7164 15%, #F5D0CC 15%, #F5D0CC 100%);
+    }
+    
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none !important;
+        background-color: #df7164;
+        height: 13px;
+        width: 13px;
+        border-radius: 50%;
+    }
+    
+    input[type=range]::-moz-range-thumb {
+        -moz-appearance: none !important;
+        background-color: #df7164;
+        border: none;
+        height: 13px;
+        width: 13px;
+        border-radius: 50%;
+    }
+</style>
+
+<body>
+
+    <div class="container main-content">
+        <header>
+
+            <div class="header-image">
+                <div class="menu-top pull-right">
+                    <a href="#" class="btn btn-default">Log Out</a>
+                </div>
+                <!-- /.menu-top-->
+                <div class="logo-container">
+                    <h1><a href="#">Abukai</a></h1>
+                    <span class="h1-subtitle">Actionable Business Productivity</span>
+                </div>
+
+
+                <div id="menu_container">
+                    <nav class="navbar navbar-default">
+
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Expenses</a></li>
+                                <li><a href="#">ToDo</a></li>
+                                <li><a href="#">User Profile</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul>
+
+                        </div>
+                        <!-- /.navbar-collapse -->
+
+                    </nav>
+                </div>
+            </div>
+            <!--/.header-image-->
+            <div id="submenu_container">
+                <nav class="navbar navbar-default navbar-sub">
+
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">Setup</a>
+                            </li>
+                            <li class="active"><a href="#">Edit</a>
+                            </li>
+                            <li><a href="#">User Profile</a>
+                            </li>
+                            <li><a href="#">Help</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- /.navbar-collapse -->
+
+                </nav>
+
+            </div>
+            <!-- /.logo-container-->
+
+
+        </header>
+        <!-- /. header -->
+        <article class="main-content-inner">
+
+            <svg width="1000" height="800" style="margin: 0 0 0 100px;">
+                <defs>
+                      <filter id="emboss">
+                      
+                              <!--Blur effect-->
+                        <feGaussianBlur stdDeviation="3" result="blur4" />
+                        <!--Lighting effect-->
+                        <feSpecularLighting result="spec4" in="blur4" specularExponent="35" lighting-color="#999999">
+                            <!--Light source effect-->
+                            <fePointLight x="-100" y="-100" z="200">
+                
+                            </fePointLight>
+                        </feSpecularLighting>
+                        <!--Composition of inputs-->
+                        <feComposite in="SourceGraphic" in2="spec4" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
+                      </filter>
+                     
+                              <!-- dropshadow effect-->
+                    <filter id="ds" x="0" y="0" width="200%" height="200%">
+                      <feOffset result="offOut" in="SourceAlpha" dx="1an0" dy="20" />
+                      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+                      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                    </filter>
+                    </defs>
+                  <g transform="translate(320,400)" >
+                
+                    <g filter="url(#emboss)" >
+                      <g filter="url(#ds)">
+                    <path d="M1.9594348786357652e-14,-320A320,320,0,1,1,-204.6129630373066,246.03563838820952L0,0Z" fill="#3182bd">
+                    </path>
+                    <path d="M-204.6129630373066,246.03563838820952A320,320,0,0,1,-299.0543715117767,-113.87046535294503L0,0Z"
+                      fill="#6baed6"></path>
+                    <path d="M-299.0543715117767,-113.87046535294503A320,320,0,0,1,-206.09848223457405,-244.79259715237504L0,0Z"
+                      fill="#9ecae1"></path>
+                    <path d="M-206.09848223457405,-244.79259715237504A320,320,0,0,1,-126.04967735412971,-294.12833736129505L0,0Z"
+                      fill="#c6dbef"></path>
+                    <path d="M-126.04967735412971,-294.12833736129505A320,320,0,0,1,-64.2876500431206,-313.47583328214193L0,0Z"
+                      fill="#e6550d"></path>
+                    <path d="M-64.2876500431206,-313.47583328214193A320,320,0,0,1,-15.856457523773857,-319.6069034842595L0,0Z"
+                      fill="#fd8d3c"></path>
+                    <path d="M-15.856457523773857,-319.6069034842595A320,320,0,0,1,-5.878304635907295e-14,-320L0,0Z" fill="#fdae6b">
+                
+                    </path>
+                        </g>
+                        </g>
+                    <g class="legend" transform="translate(375,-108.5)">
+                      <rect width="25" height="25" style="fill: rgb(49, 130, 189); stroke: rgb(49, 130, 189);"></rect><text x="31"
+                        y="19">Verpflegung &amp; Bewirtung</text>
+                    </g>
+                    <g class="legend" transform="translate(375,-77.5)">
+                      <rect width="25" height="25" style="fill: rgb(107, 174, 214); stroke: rgb(107, 174, 214);"></rect><text x="31"
+                        y="19">Materialien</text>
+                    </g>
+                    <g class="legend" transform="translate(375,-46.5)">
+                      <rect width="25" height="25" style="fill: rgb(158, 202, 225); stroke: rgb(158, 202, 225);"></rect><text x="31"
+                        y="19">Sonstiges</text>
+                    </g>
+                    <g class="legend" transform="translate(375,-15.5)">
+                      <rect width="25" height="25" style="fill: rgb(198, 219, 239); stroke: rgb(198, 219, 239);"></rect><text x="31"
+                        y="19">Telefon</text>
+                    </g>
+                    <g class="legend" transform="translate(375,15.5)">
+                      <rect width="25" height="25" style="fill: rgb(230, 85, 13); stroke: rgb(230, 85, 13);"></rect><text x="31"
+                        y="19">Uebernachtung</text>
+                    </g>
+                    <g class="legend" transform="translate(375,46.5)">
+                      <rect width="25" height="25" style="fill: rgb(253, 141, 60); stroke: rgb(253, 141, 60);"></rect><text x="31"
+                        y="19">Verkehrsmittel</text>
+                    </g>
+                    <g class="legend" transform="translate(375,77.5)">
+                      <rect width="25" height="25" style="fill: rgb(253, 174, 107); stroke: rgb(253, 174, 107);"></rect><text x="31"
+                        y="19">Parken &amp; Gebuehren</text>
+                    </g>
+                  </g>
+                </svg>
+        </article>
+        <!-- /.main-content-inner -->
+        <footer>
+            <ul>
+                <li><a href="http://abukai.com/?id=4">Contact Us</a></li>
+                <li><a href="http://abukai.com/?id=privacy">Privacy Statement</a></li>
+                <li><a href="http://abukai.com/?id=tos">Terms of Use</a></li>
+                <li><a href="http://abukai.com/?id=eula">EULA</a></li>
+            </ul>
+            &copy; Copyright 2010-2017 ABUKAI, Inc. All Rights Reserved. Various trademarks held by their respective owners.
+        </footer>
+
+    </div>
+    <!--/.container-->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
+    <script src="script.js"></script>
+    <script src="line.js"></script>
+    <script src="pie.js"></script>
+    <script src="bar.js"></script>
+    <!-- <script src="https://code.jscharting.com/2.9.0/jscharting.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="libs/d3.min.js"></script>
+    <script>
+        window.onload = lineChart('csv/pie.csv');
+    </script>
+
+    <script>
+        var count = 0;
+        var state;
+
+        function updateGraph(para1, para2) {
+            //if(para2==='bar' && count==0)
+            //{
+            //   state=barChart(para1,null);
+            //}
+            if (para2 === 'bar')
+                barChart(para1);
+
+            if (para2 === 'line')
+                renderChart(para1);
+
+            if (para2 === 'pie')
+                lineChart(para1);
+            //  if(para2==='line')
+            //{
+            //   state=renderChart(para1,state);
+            //}
+
+            //if(para2==='bar')
+            //{
+            //   state=barChart(para1,state);
+            //}
+
+
+        }
+
+        function shadowSetter() {
+            var value = document.getElementById("vol").value.toString();
+            console.log("document.getElementById.stdDeviation.value");
+            document.getElementById("blurs").setAttribute("stdDeviation", value);
+            //console.log( document.getElementById("blurs").stdDeviation.value);
+            //document.getElementById("blurs").stdDeviation.value=value;
+        }
+    </script>
+
+
+</body>
+
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="https://d3js.org/d3-color.v2.min.js"></script>
+<script src="https://d3js.org/d3-format.v2.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
+<script src="https://d3js.org/d3-time.v2.min.js"></script>
+<script src="https://d3js.org/d3-time-format.v3.min.js"></script>
+<script src="https://d3js.org/d3-scale.v3.min.js"></script>
+
+</html>

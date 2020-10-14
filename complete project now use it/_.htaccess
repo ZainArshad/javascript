@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "abukai Development Area"
+AuthUserFile /var/www/vhosts/aixssd114.aix-cloud.de/hosting/.htpasswd
+Require user abu
