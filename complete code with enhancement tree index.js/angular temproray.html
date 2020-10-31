@@ -1,0 +1,389 @@
+import {
+    Component,
+    OnInit,
+    AfterViewInit,
+    ViewChild,
+    ElementRef,
+    Renderer2,
+  } from '@angular/core';
+  
+  import * as Utils from '../../d3/d3.graph.utils';
+  import { GraphNode } from '../../d3/models/graph';
+  import { MatDialog } from '@angular/material/dialog';
+  import { DialogBoxComponent } from '../gct-editor/dialog-box/dialog-box.component';
+  import "../../../../node_modules/d3";
+  import * as d3 from "../../../../node_modules/d3/dist/d3.min.js";
+  
+  @Component({
+    selector: 'app-graph',
+    templateUrl: './graph.component.html',
+    styleUrls: ['./graph.component.scss'],
+  })
+  export class GraphComponent implements OnInit, AfterViewInit {
+    // @Input('nodes') nodes;
+    // @Input('links') links;
+    d3: d3.Simulation<any,any>;
+    graphNode: GraphNode = {
+      id: 1,
+      content: '',
+      children: [],
+      parentId: 1,
+      size : {width: 212, height: 64},
+      width : 212,
+      height : 64,
+      x: 50,
+      y: 70,
+      position: {x: 0, y: 0},
+      vx: 0,
+      vy: 0,
+      fx: 0,
+      fy: 0
+  };
+  
+    @ViewChild('svg') svgRef: ElementRef<SVGElement>;
+  
+    constructor(public renderer: Renderer2, public dialog: MatDialog) {
+      
+    }
+  
+    ngOnInit(): void {
+      let glob=false;
+      let ids=0;
+  function filterTree(obj, results,search) {
+  
+  if (search.name===obj.name)
+  {    console.log("Run now"); 
+    if(obj.children==null)
+      {
+          obj.children=[{}];
+          obj.children[0]=results;
+          console.log("naya children");
+          console.log(obj.children);
+      }
+      else
+  obj.children.push(results);
+  console.log("poorane children");
+  console.log(obj.children);
+  obj.count=obj.count+1;
+  }
+  //results.push(obj);;
+  
+  if (obj.children)
+  for (let child of obj.children)
+  filterTree(child, results, search) 
+  }
+  
+  var margin = {
+  top: 20,
+  right: 120,
+  bottom: 20,
+  left: 120
+  },
+  width = 960 - margin.right - margin.left,
+  height = 800 - margin.top - margin.bottom;
+  
+  var root = {
+  "name": "parent",
+  "count":0,
+  "img_id":"down0",
+  "children": null,
+  "x0":0,
+   "y0":0
+  };
+  
+  let idd="down";
+  let image_id="down";
+  let counts=0;
+  
+  
+  var i = 0,
+  duration = 750,
+  rectW = 212,
+  rectH = 64;
+  
+  var tree = d3.layout.tree().nodeSize([120, 40]);
+  var diagonal = d3.svg.diagonal()
+  .projection(function (d) {
+  return [d.x *2 + rectW / 2, d.y + rectH / 2];
+  });
+  
+  var svg = d3.select("#body").append("svg").attr("width", 10000).attr("height", 10000)
+  .append("g")
+  .attr("transform", "translate(" + 650 + "," + 20 + ")");
+  
+  //necessary so that zoom knows where to zoom and unzoom from
+  //zm.translate([350, 20]);
+  
+  root.x0 = 0;
+  root.y0 = height / 2;
+  
+  function collapse(d) {
+  if (d.children) {
+  d._children = d.children;
+  d._children.forEach(collapse);
+  d.children = null;
+  }
+  }
+  
+  //root.children.forEach(collapse);
+  update(root);
+  
+  d3.select("#body").style("height", "50%");
+  d3.select("#body").style("width", "100%");
+  
+  function update(source) {
+  
+  console.log("update");
+  console.log("Now idd is "+idd);
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse(),
+  links = tree.links(nodes);
+  
+  // Normalize for fixed-depth.
+  nodes.forEach(function (d) {
+  d.y = d.depth * 180;
+  });
+  
+  // Update the nodes…
+  var node = svg.selectAll("g.node")
+  .data(nodes, function (d) {
+  return d.id || (d.id = ++i);
+  });
+  
+  // Enter any new nodes at the parent's previous position.
+  var nodeEnter = node.enter().append("g")
+  .attr("class", "node");
+  
+  
+  nodeEnter.append("rect")
+  .attr("width", 412)
+  .attr("height", 165)
+  .attr("stroke", "black")
+  .attr("stroke-width", 1)
+  .style("fill", function (d) {
+  return d._children ? "lightsteelblue" : "#fff";
+  }).on('mouseover', function (d, i) {
+  console.log("dname is "+d.name);
+    d3.selectAll('#'+d.img_id)
+         .style("display","block")}).on('mouseout',function(d,i){
+             d3.selectAll('#'+d.img_id).style("display","none")
+         }) ;
+  
+  
+  
+  var longText = 'span> hello[&times;10<sup>-15</sup> ss<sup>-1</sup>]hello[&times;10<sup>-15</sup> ss<sup>-1</sup>]hello[&times;10<sup>-15</sup> ss<sup>-1</sup>]hello[&times;10<sup>-15</sup> ss<sup>-1</sup>]hello[&times;10<sup>-15</sup> ss<sup>-1</sup>]</span>';
+  const text = nodeEnter
+  .append('foreignObject')
+  .attr('width', 201)
+  // .attr('height', 20)
+  .attr('id', 'textBox')
+  .attr('x', 15  )
+  .attr('y', 25 )
+  .attr('id', 'textBox')
+  .style('fill', 'black')
+  .append('xhtml:body')
+  .style("margin", 0);
+  
+  var textAppend = text.append("div").style("margin", "0px").style("width", "201px").style("word-break", "break-all").html(longText);
+  
+  // console.log(text.node().getBoundingClientRect().height);
+  
+  // var foHeight = text.select("body").getBoundingClientRect().height;
+  var foHeight = text.node().getBoundingClientRect().height
+  
+  
+  console.log(foHeight, text, text.select("body").node());
+  nodeEnter.select('foreignObject').attr('height', foHeight);
+  // nodeEnter.select('node').attr('height', foHeight + 10);
+  
+  if(glob===false)
+  {
+  nodeEnter.append('svg:image')
+      .attr('x', 203)
+      .attr('y', -7)
+      .attr('width', 24)
+      .attr('height', 24)
+      .attr('xlink:href', './img/system-icon-filled-icons-alert-icon-positive.svg');
+      glob=true;   
+      idd=idd+1;
+      console.log("idd is : "+idd);
+  }
+  
+  nodeEnter.append('svg:image')
+      .attr('x', 180)
+      .attr('y', 7)
+      .attr('width', 24)
+      .attr('height', 24)
+      .attr('xlink:href', './img/edit-24-px.svg')  ;
+  
+  
+      nodeEnter.append('svg:image')
+      .attr('x', 90).attr("id",image_id+counts)
+      .attr('y', 100)
+      .attr('width', 40)
+      .attr('height', 40)
+      .attr('xlink:href', './img/system-icon-outlined-icons-navigation-icon-go-down.svg').style("display","none").on("click", click)  ;
+      
+      counts++;
+  
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+  .duration(1)
+  .attr("transform", function (d) {
+  return "translate(" + d.x*2 + "," + d.y + ")";
+  });
+  
+  
+  
+  
+  
+  
+  
+  
+  nodeUpdate.select("rect").
+  attr("height", function() {console.log(text.node().clientHeight); return(text.node().clientHeight + 2);})
+  .attr("width", rectW)
+  .attr("height", foHeight + 50)
+  .attr("stroke", "black")
+  .attr("stroke-width", 1)
+  .style("fill", function (d) {
+  return d._children ? "lightsteelblue" : "#fff";
+  });
+  
+  nodeUpdate.select("text")
+  .style("fill-opacity", 1);
+  
+  // Transition exiting nodes to the parent's new position.
+  var nodeExit = node.exit().transition()
+  .duration(duration)
+  .attr("transform", function (d) {
+  return "translate(" + source.x + "," + source.y + ")";
+  })
+  .remove();
+  
+  nodeExit.select("rect")
+  .attr("width", rectW)
+  // .attr("height", rectH)
+  //.attr("width", bbox.getBBox().width)""
+  //.attr("height", bbox.getBBox().height)
+  .attr("stroke", "black")
+  .attr("stroke-width", 1);
+  
+  
+  
+  
+  
+  nodeExit.select("text");
+  
+  // Update the links…
+  
+  
+  var link = svg.selectAll("path.link")
+  .data(links, function (d) {
+  return d.target.id;
+  });
+  
+  
+  
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("path", "g")
+  .attr("class", "link")
+  .attr("x", rectW * 2)
+  .attr("y", rectH / 2)
+  .attr("d", function (d) {
+  var o = {
+      x: source.x0,
+      y: source.y0
+  };
+  console.log("o value is:"+o);
+  return diagonal({
+      source: o,
+      target: o
+  }) ;
+  });
+  // Transition links to their new position.
+  link.transition()
+  .duration(1)
+  .attr("d", diagonal);
+  
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+  .duration(1)
+  .attr("d", function (d) {
+  var o = {
+      x: source.x,
+      y: source.y
+  };
+  return diagonal({
+      source: o,
+      target: o
+  });
+  })
+  .remove();
+  
+  // Stash the old positions for transition.
+  nodes.forEach(function (d) {
+  d.x0 = d.x;
+  d.y0 = d.y;
+  });
+  }
+  
+  let name = 1;
+  // Toggle children on click.
+  function click(d) {
+  console.log("d:"+d.children);
+  var d1 = {
+  "name":name+"1",
+  "count":0,
+  "img_id":image_id+counts,
+  "children":null
+  };
+  //Object.assign(d,d1);
+  console.log("name :" + d.name);
+  console.log("count :"+ d.count);
+  console.log("children:" + d.children);
+  name++;
+  if(d.count<15)
+  {
+  filterTree(root, d1,d);
+  }
+  update(d);
+  }
+  
+  //Redraw for zoom
+  function redraw() {
+  //console.log("here", d3.event.translate, d3.event.scale);
+  svg.attr("transform",
+  "translate(" + d3.event.translate + ")"
+  + " scale(" + d3.event.scale + ")");
+  }
+  
+    }
+  
+  
+    ngAfterViewInit(): void {
+      this.drawGraphNodes();
+    }
+  
+    public drawGraphNodes(): void {
+      Utils.createGraphNode(this.svgRef, this.graphNode);
+      this.renderer.listen(this.svgRef.nativeElement.querySelector('#textEdit'), 'click', (event) => {
+        let content = this.svgRef.nativeElement.querySelector('#textBox').children[0]['innerHTML'];
+        this.openDialog(content);
+      })
+    }
+  
+  //Diolog for text editor
+  openDialog(content): void {
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      width: '100%',
+      data: { content: content, title: "Edit Textbox" }
+    });
+  
+    dialogRef.afterClosed().subscribe(contentChange => {
+      this.svgRef.nativeElement.querySelector('#textBox').innerHTML = `<pre>${contentChange}</pre>`;
+      this.svgRef.nativeElement.querySelector('#textBox').setAttribute('height','500px');
+    });
+  }
+  }
+  

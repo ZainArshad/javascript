@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <meta charset=utf-8>
+<head>
+    <meta name="description" content="D3.js v4, transition, color, location" />
+</head>
+
+<body>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!-- .attrs() -->
+    <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+    <script>
+        var svg = d3.select('body')
+                    .append('svg')
+                    .attrs({ width: 500, height: 200 })
+                    .append("g");
+        svg.append('rect')
+           .attrs({ x: 50, y: 50, width: 212, height: 65, fill: 'none' })
+           //.transition()
+           //.duration(5000)
+           //.attrs({ x: 460, y: 150, width: 40, height: 40, fill: 'blue' });
+           .attr('stroke', 'black')
+           //.attr('stroke-dasharray', '5,5')
+           //.attr('stroke-linecap', 'butt')
+           .attr('opacity', 0.30)
+           .attr('stroke-width', '1')
+        svg.append('svg:image')
+            .attr('x', 250)
+            .attr('y', 35)
+            .attr('width', 24)
+            .attr('height', 24)
+            .attr('xlink:href', './img/system-icon-filled-icons-alert-icon-positive.svg')   
+        svg.append('svg:image')
+            .attr('x', 230)
+            .attr('y', 55)
+            .attr('width', 24)
+            .attr('height', 24)
+            .attr('xlink:href', './img/edit-24-px.svg')     
+    </script>
+</body>
+</html>
