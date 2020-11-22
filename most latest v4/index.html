@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Abukai</title>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/div.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+    <div class="container main-content">
+        <header>
+
+            <div class="header-image">
+                <div class="menu-top pull-right">
+                    <a href="#" class="btn btn-default">Log Out</a>
+                </div>
+                <!-- /.menu-top-->
+                <div class="logo-container">
+                    <h1><a href="#">Abukai</a></h1>
+                    <span class="h1-subtitle">Actionable Business Productivity</span>
+                </div>
+
+
+                <div id="menu_container">
+                    <nav class="navbar navbar-default">
+
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Expenses</a></li>
+                                <li><a href="#">ToDo</a></li>
+                                <li><a href="#">User Profile</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul>
+
+                        </div>
+                        <!-- /.navbar-collapse -->
+
+                    </nav>
+                </div>
+            </div>
+            <!--/.header-image-->
+            <div id="submenu_container">
+                <nav class="navbar navbar-default navbar-sub">
+
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">Setup</a>
+                            </li>
+                            <li class="active"><a href="#">Edit</a>
+                            </li>
+                            <li><a href="#">User Profile</a>
+                            </li>
+                            <li><a href="#">Help</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- /.navbar-collapse -->
+
+                </nav>
+
+            </div>
+            <!-- /.logo-container-->
+
+
+        </header>
+        <!-- /. header -->
+        <article class="main-content-inner">
+
+            <ul class="switch">
+                <!-- <li><a href="javascript: updateGraph('pie-chart.csv','pie')" class="btn btn-default">Show pie chart</a></li> -->
+                <li><a href="javascript: updateGraph('csv/pie.csv','pie')" class="btn btn-default">Show pie chart</a></li>
+                <li><a href="javascript: updateGraph('csv/bar.csv','bar')" class="btn btn-default">Show bar chart</a></li>
+                <li><a href="javascript: updateGraph('csv/line.csv','line')" class="btn btn-default">Show line chart</a></li>
+            </ul>
+
+            <!-- <div id="chart"></div> -->
+
+            <svg height="140" width="140" style="display:none">
+                <defs>
+            <!--
+                    <filter id="f3" x="0" y="0" width="200%" height="200%">
+                    <feOffset result="offOut" in="SourceAlpha" dx="20" dy="20" />
+                    <feGaussianBlur id="blurs" result="blurOut" in="offOut" stdDeviation="20" />
+                    <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                  </filter>
+                -->
+                </defs>
+            </svg>
+
+
+            <!-- <canvas id="pieChart" style="height: 801px; display:none; min-height: 100px;" class="blur myChart" ></canvas> -->
+            <!-- <input type="range" id="vol" name="vol" min="0" max="50" style="width:300px; background: coral; background: coral;" onchange="shadowSetter()"> -->
+            <!-- <ul class="legend"></ul> -->
+            <svg version="1.1" id="loader" width="100px" height="100px" style="display:block;" transform="translate(490,2.5)"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="25 25 50 50">
+  <circle cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke="orange" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="100, 200">
+    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 50 50" to="360 50 50" dur="2.5s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dashoffset" values="0;-30;-124" dur="1.25s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dasharray" values="0,200;110,200;110,200" dur="1.25s" repeatCount="indefinite"/>
+  </circle>
+</svg>
+            <canvas id="myChart" style="height: 461px; width:1600px;  display:none; min-height: 100px;"></canvas>
+            <div id="chart" class="blur" style=" display:none; min-height: 100px; "></div>
+            <canvas id="barChart" style="height: 461px; width:1600px; display:none; min-height: 100px;"></canvas>
+            
+        </article>
+        <!-- /.main-content-inner -->
+        <footer>
+            <ul>
+                <li><a href="http://abukai.com/?id=4">Contact Us</a></li>
+                <li><a href="http://abukai.com/?id=privacy">Privacy Statement</a></li>
+                <li><a href="http://abukai.com/?id=tos">Terms of Use</a></li>
+                <li><a href="http://abukai.com/?id=eula">EULA</a></li>
+            </ul>
+            &copy; Copyright 2010-2017 ABUKAI, Inc. All Rights Reserved. Various trademarks held by their respective owners.
+        </footer>
+
+    </div>
+    <!--/.container-->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
+    <script src="js/updategraph.js"></script>
+    <script src="js/line.js"></script>
+    <script src="js/pie.js"></script>
+    <script src="js/bar.js"></script>
+
+    <!-- <script src="https://code.jscharting.com/2.9.0/jscharting.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="libs/d3.min.js"></script>
+
+    <script>
+        window.onload = updateGraph('csv/pie.csv', 'pie');
+    </script>
+
+
+
+</body>
+
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="https://d3js.org/d3-color.v2.min.js"></script>
+<script src="https://d3js.org/d3-format.v2.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
+<script src="https://d3js.org/d3-time.v2.min.js"></script>
+<script src="https://d3js.org/d3-time-format.v3.min.js"></script>
+<script src="https://d3js.org/d3-scale.v3.min.js"></script>
+
+</html>

@@ -1,0 +1,11 @@
+if(document.getElementById("loader").style.display==="none")
+    {
+        console.log("I am in settimeout");
+        document.getElementById("loader").style.display="block";
+         var time=0;
+        while (time<30000000)
+        {
+            time++;
+        }
+         document.getElementById("loader").style.display="none"; 
+    }
