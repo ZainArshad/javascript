@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+        
+
+</head>
+
+<style>
+   @keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}
+	.chartjs-render-monitor{animation:chartjs-render-animation 1ms}
+	.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}
+	.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}
+	.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}
+</style>
+
+
+<body>
+    <div id="vis-tool">
+        <div>
+            <form
+                action="https://datasette-vega-latest.datasette.io/?url=https%3A%2F%2Ffivethirtyeight.datasettes.com%2Ffivethirtyeight-45d758d%2Fnba-elo%252Fnbaallelo.json#g.mark=line&amp;g.x_column=rowid&amp;g.x_type=nominal&amp;g.y_column=lg_id&amp;g.y_type=quantitative&amp;g.color_column=seasongame&amp;g.size_column=date_game"
+                method="GET" id="graphForm" class="datasette-vega">
+                <h3>Charting options</h3>
+                <div class="filter-row radio-buttons"><label value="bar"><input type="radio" name="mark" value="bar">
+                        Bar</label><label value="line"><input type="radio" name="mark" value="line"> Line</label><label
+                        value="circle"><input type="radio" name="mark" value="circle"> Scatter</label></div>
+                <div class="filter-row"><label>X column <div class="select-wrapper"><select name="x_column">
+                                <option value="rowid">rowid</option>
+                                <option value="airline">airline</option>
+                                <option value="avail_seat_km_per_week">avail_seat_km_per_week</option>
+                                <option value="incidents_85_99">incidents_85_99</option>
+                                <option value="fatal_accidents_85_99">fatal_accidents_85_99</option>
+                                <option value="fatalities_85_99">fatalities_85_99</option>
+                                <option value="incidents_00_14">incidents_00_14</option>
+                                <option value="fatal_accidents_00_14">fatal_accidents_00_14</option>
+                                <option value="fatalities_00_14">fatalities_00_14</option>
+                                
+                            </select></div></label><label>Type <div class="select-wrapper"><select name="x_type">
+                                <option value="quantitative">Numeric</option>
+                                <option value="quantitative-bin">Numeric, binned</option>
+                                <option value="temporal">Date/time</option>
+                                <option value="temporal-bin">Date/time, binned</option>
+                                <option value="ordinal">Label</option>
+                                <option value="nominal">Category</option>
+                            </select></div></label></div>
+                <div class="filter-row"><label>Y column <div class="select-wrapper"><select name="y_column">
+                    <option value="rowid">rowid</option>
+                    <option value="airline">airline</option>
+                    <option value="avail_seat_km_per_week">avail_seat_km_per_week</option>
+                    <option value="incidents_85_99">incidents_85_99</option>
+                    <option value="fatal_accidents_85_99">fatal_accidents_85_99</option>
+                    <option value="fatalities_85_99">fatalities_85_99</option>
+                    <option value="incidents_00_14">incidents_00_14</option>
+                    <option value="fatal_accidents_00_14">fatal_accidents_00_14</option>
+                    <option value="fatalities_00_14">fatalities_00_14</option>
+                            </select></div></label><label>Type <div class="select-wrapper"><select name="y_type">
+                                <option value="quantitative">Numeric</option>
+                                <option value="quantitative-bin">Numeric, binned</option>
+                                <option value="temporal">Date/time</option>
+                                <option value="temporal-bin">Date/time, binned</option>
+                                <option value="ordinal">Label</option>
+                                <option value="nominal">Category</option>
+                            </select></div></label></div>
+                <div class="swap-x-y"><button>Swap X and Y</button></div>
+                <div class="filter-row"><label>Color <div class="select-wrapper"><select name="color_column">
+                    <option value="rowid">rowid</option>
+                    <option value="airline">airline</option>
+                    <option value="avail_seat_km_per_week">avail_seat_km_per_week</option>
+                    <option value="incidents_85_99">incidents_85_99</option>
+                    <option value="fatal_accidents_85_99">fatal_accidents_85_99</option>
+                    <option value="fatalities_85_99">fatalities_85_99</option>
+                    <option value="incidents_00_14">incidents_00_14</option>
+                    <option value="fatal_accidents_00_14">fatal_accidents_00_14</option>
+                    <option value="fatalities_00_14">fatalities_00_14</option>
+                            </select></div></label><label>Size <div class="select-wrapper"><select name="size_column">
+                                <option value="rowid">rowid</option>
+                                <option value="airline">airline</option>
+                                <option value="avail_seat_km_per_week">avail_seat_km_per_week</option>
+                                <option value="incidents_85_99">incidents_85_99</option>
+                                <option value="fatal_accidents_85_99">fatal_accidents_85_99</option>
+                                <option value="fatalities_85_99">fatalities_85_99</option>
+                                <option value="incidents_00_14">incidents_00_14</option>
+                                <option value="fatal_accidents_00_14">fatal_accidents_00_14</option>
+                                <option value="fatalities_00_14">fatalities_00_14</option>
+                            </select></div></label></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container main-content">
+
+            <canvas id="barChart" style=" width: 840px; height: 500px;  margin-left: 150px; padding:10px"></canvas>
+            <canvas id="lineChart" style=" width: 840px; height: 500px;  margin-left: 150px; padding:10px"></canvas>
+
+
+
+    </div>
+    <!--/.container-->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
+    <script src="js/line.js"></script>
+    <script src="js/bar.js"></script>
+
+    <!-- <script src="https://code.jscharting.com/2.9.0/jscharting.js"></script> https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="libs/d3.min.js"></script>
+
+    <script>
+        window.onload = barplot('csv/airline.csv','airline','avail_seat_km_per_week');
+        window.onload = lineplot('csv/airline.csv','airline','avail_seat_km_per_week');
+    </script>
+
+
+
+</body>
+
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="https://d3js.org/d3-color.v2.min.js"></script>
+<script src="https://d3js.org/d3-format.v2.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
+<script src="https://d3js.org/d3-time.v2.min.js"></script>
+<script src="https://d3js.org/d3-time-format.v3.min.js"></script>
+<script src="https://d3js.org/d3-scale.v3.min.js"></script>
+
+</html>
