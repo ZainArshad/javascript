@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+        
+
+</head>
+
+<style>
+   @keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}
+	.chartjs-render-monitor{animation:chartjs-render-animation 1ms}
+	.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}
+	.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}
+	.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}
+</style>
+
+
+<body>
+
+    <div class="container main-content">
+        <article class="main-content-inner" style=" min-height:500px; background-color: white !important; ">
+            <canvas id="barChart" style=" width: 840px; height: 500px; margin-top:100px;  margin-left: 230px; padding:10px"></canvas>
+        </article>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+    </script>
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
+    <script src="js/bar.js"></script>
+
+    <!-- <script src="https://code.jscharting.com/2.9.0/jscharting.js"></script> https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="libs/d3.min.js"></script>
+
+    <script>
+        window.onload = barChart('csv/hosted.csv');
+    </script>
+
+
+
+</body>
+
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="https://d3js.org/d3-color.v2.min.js"></script>
+<script src="https://d3js.org/d3-format.v2.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
+<script src="https://d3js.org/d3-time.v2.min.js"></script>
+<script src="https://d3js.org/d3-time-format.v3.min.js"></script>
+<script src="https://d3js.org/d3-scale.v3.min.js"></script>
+
+</html>
